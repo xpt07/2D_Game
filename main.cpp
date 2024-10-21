@@ -9,7 +9,7 @@ int main() {
 	GamesEngineeringBase::Window canvas;
 	canvas.create(1024, 768, "Tiles");
 	
-	Player player("resources/L.png");
+	Player player("resources/L.png", 512, 384);
 
 	bool running = true; // Variable to control the main loop's running state.
 	while (running)
@@ -19,6 +19,7 @@ int main() {
 		canvas.clear();
 
 		// Update game logic
+		if (canvas.keyPressed(VK_ESCAPE))  break;
 		player.onUpdate();
 
 

@@ -7,7 +7,7 @@ using namespace GamesEngineeringBase;
 class Characters
 {
 public:
-	Characters(string sImage);
+	Characters(string sImage, unsigned int startX, unsigned int startY);
 	virtual ~Characters() = default;
 	virtual void onUpdate() = 0;
 	void draw(Window& w);
@@ -15,6 +15,6 @@ public:
 protected:
 	Image image;
 	Window window;
-	unsigned int planeX;
-	unsigned int planeY;
+	unsigned int x;
+	unsigned int y;
 };

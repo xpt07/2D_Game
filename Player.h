@@ -4,12 +4,11 @@
 class Player : public Characters
 {
 public:
-	Player(string sImage);
-
+	Player(string sImage, unsigned int startX, unsigned int startY);
 	void onUpdate() override;
-
+	Image getImage() { return playerImage; };
 private:
-	unsigned int planeX = window.getWidth() / 2 - (image.width / 2);
-	unsigned int planeY = window.getHeight() / 2 - (image.height / 2);
+	Image playerImage;
+	unsigned int playerX, playerY;
 };
 
