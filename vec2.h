@@ -1,12 +1,11 @@
 #pragma once
-#include <iostream>
 #include <cmath>
-
-using namespace std;
 
 class vec2
 {
 public:
+	float x, y;
+
 	vec2():
 		x(0), y(0)
 	{}
@@ -14,8 +13,6 @@ public:
 	vec2(float _x, float _y) :
 		x(_x), y(_y)
 	{}
-
-	~vec2();
 
 	void setPos(float _x, float _y)
 	{
@@ -31,5 +28,4 @@ public:
 	}
 
 private:
-	float x, y;
 };

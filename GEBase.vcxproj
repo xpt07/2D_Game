@@ -138,6 +138,12 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\background\Space_Background1.png" />
+    <Image Include="resources\background\Space_Background2.png" />
+    <Image Include="resources\background\Space_Background3.png" />
+    <Image Include="resources\background\Space_Background4.png" />
+    <Image Include="resources\background\Space_Background5.png" />
+    <Image Include="resources\background\Space_Background6.png" />
     <Image Include="resources\L.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

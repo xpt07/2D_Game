@@ -4,11 +4,13 @@
 class Player : public Characters
 {
 public:
-	Player(string sImage, unsigned int startX, unsigned int startY);
-	void onUpdate() override;
-	Image getImage() { return playerImage; };
+	Player(string sImage, vec2 startPos);
+	void onUpdate(GamesEngineeringBase::Window& window) override;
+	Image getImage() { return playerImage; }
+	vec2 getPos() { return playerPos; }
 private:
 	Image playerImage;
-	unsigned int playerX, playerY;
+	vec2 playerPos;
+	bool withinBounds(int x, int y, int width, int height);
 };
 

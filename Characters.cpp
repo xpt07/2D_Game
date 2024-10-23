@@ -1,7 +1,7 @@
 #include "Characters.h"
 
-Characters::Characters(string sImage, unsigned int startX, unsigned int startY):
-	x(startX), y(startY)
+Characters::Characters(string sImage, vec2 startPos):
+	pos(startPos)
 {
 	image.load(sImage);
 }
@@ -16,7 +16,7 @@ void Characters::draw(Window& w)
 		for (unsigned int j = 0; j < image.height; j++)
 		{
 			if (image.alphaAt(i, j) > 200)
-				w.draw(x + i, y + j, image.at(i, j));
+				w.draw(pos.x + i, pos.y + j, image.at(i, j));
 		}
 	}
 }
