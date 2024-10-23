@@ -130,6 +130,7 @@
     <ClInclude Include="Characters.h" />
     <ClInclude Include="GamesEngineeringBase.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Characters.cpp" />
