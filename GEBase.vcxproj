@@ -128,8 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Characters.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="GamesEngineeringBase.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="vec2.h" />
   </ItemGroup>
   <ItemGroup>

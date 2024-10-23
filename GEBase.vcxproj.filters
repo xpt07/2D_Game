@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Hitboxes">
+      <UniqueIdentifier>{585fc64f-24f4-4e8d-8780-12c6eff47339}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamesEngineeringBase.h">
@@ -26,6 +29,15 @@
     </ClInclude>
     <ClInclude Include="vec2.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files\Hitboxes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +53,24 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\L.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background6.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
