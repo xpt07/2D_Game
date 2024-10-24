@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "BackgroundTiles.h"
 #include "Rect.h"
 #include "vec2.h"
 
@@ -10,7 +9,6 @@ int main() {
 	
 	Player player("resources/L.png", vec2(512, 384));
 	Rect rect(vec2(100, 100), vec2(200, 200));
-	BackgroundTiles bg;
 
 	//GamesEngineeringBase::Image bg;
 	//bg.load("resources/background/Space_Background1.png");
@@ -27,7 +25,6 @@ int main() {
 		// Update game logic
 		player.onUpdate(canvas);
 
-		bg.draw(canvas);
 
 		player.draw(canvas);
 
