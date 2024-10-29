@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Characters.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="GamesEngineeringBase.h" />
@@ -141,6 +143,27 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\background\background0.png" />
+    <Image Include="resources\background\background1.png" />
+    <Image Include="resources\background\background2.png" />
+    <Image Include="resources\background\background3.png" />
+    <Image Include="resources\background\background4.png" />
+    <Image Include="resources\background\background5.png" />
+    <Image Include="resources\background\background6.png" />
+    <Image Include="resources\background\background7.png" />
+    <Image Include="resources\background\background8.png" />
+    <Image Include="resources\background\background9.png" />
+    <Image Include="resources\background\bg0.png" />
+    <Image Include="resources\background\bg1.png" />
+    <Image Include="resources\background\bg2.png" />
+    <Image Include="resources\background\bg3.png" />
+    <Image Include="resources\background\bg4.png" />
+    <Image Include="resources\background\bg5.png" />
+    <Image Include="resources\background\bg6.png" />
+    <Image Include="resources\background\bg7.png" />
+    <Image Include="resources\background\bg8.png" />
+    <Image Include="resources\background\bg9.png" />
+    <Image Include="resources\background\Space_Background0.png" />
     <Image Include="resources\background\Space_Background1.png" />
     <Image Include="resources\background\Space_Background2.png" />
     <Image Include="resources\background\Space_Background3.png" />
@@ -148,6 +171,7 @@
     <Image Include="resources\background\Space_Background5.png" />
     <Image Include="resources\background\Space_Background6.png" />
     <Image Include="resources\L.png" />
+    <Image Include="resources\mainShip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

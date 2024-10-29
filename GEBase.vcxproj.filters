@@ -39,6 +39,12 @@
     <ClInclude Include="Circle.h">
       <Filter>Header Files\Hitboxes</Filter>
     </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +77,72 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\background\Space_Background6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\background9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\Space_Background0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\mainShip.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\background\bg9.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
