@@ -35,7 +35,7 @@ public:
 		for (unsigned int i = 0; i < size; i++)
 		{
 			string filename;
-			filename = "resources/" + to_string(i) + ".png";
+			filename = "resources/background/bg" + to_string(i) + ".png";
 			tiles[i].load(filename);
 		}
 	}
@@ -52,6 +52,7 @@ class Background
 public:
 	Background() {
 		tiles.load();
+
 		for (unsigned int i = 0; i < MAX_SIZE; i++)
 			a[i] = rand() % MAX_TILES;
 	}
