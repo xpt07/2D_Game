@@ -12,11 +12,11 @@ int main() {
 	bool running = true; // Variable to control the main loop's running state.
 
 	Background background;
-	Player player("resources/L.png", vec2((canvas.getWidth() / 2), 2 * canvas.getHeight() / 3));
+	Player player("resources/mainShip.png", vec2((canvas.getWidth() / 2), 2 * canvas.getHeight() / 3));
 
 
 	Timer tim;
-	int y = 0;
+	int x = 0;
 
 	while (running)
 	{
@@ -29,20 +29,13 @@ int main() {
 		float dt = tim.dt();
 		int move = static_cast<int>((500.f * dt));
 
-
-
-		int x = 0;
 		if (canvas.keyPressed(VK_ESCAPE)) break;
-		if (canvas.keyPressed('W')) y += 5;
-		if (canvas.keyPressed('S')) y -= 1;
-		if (canvas.keyPressed('A')) x -= move;
-		if (canvas.keyPressed('D')) x += move;
-
 
 		// Update game logic
 		player.onUpdate(canvas);
 
-		background.draw(canvas, y);
+		x += 2;
+		background.draw(canvas, x);
 		player.draw(canvas);
 
 		// Display the frame on the screen. This must be called once the frame is finished in order to display the frame.

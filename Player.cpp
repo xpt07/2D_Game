@@ -2,9 +2,7 @@
 
 
 Player::Player(string sImage, vec2 startPos) : Characters(sImage, startPos)
-{
-		
-}
+{}
 
 void Player::onUpdate(GamesEngineeringBase::Window& window)
 {

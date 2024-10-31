@@ -58,7 +58,7 @@ public:
 	}
 
 	void draw(Window& canvas, int wy) {
-		int height = 384;
+		int height = 768;
 		int Y = wy / height;
 		int r = wy % height;
 		tiles[a[Y % MAX_SIZE]].draw(canvas, (canvas.getHeight() / 2) + r);
