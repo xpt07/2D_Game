@@ -1,25 +1,21 @@
 #pragma once
 #include "vec2.h"
 
-class Camera
-{
+class Camera {
 public:
+    Camera(int width, int height) : width(width), height(height), position(0, 0) {}
+
+    void follow(const vec2& target, float lerpFactor = 0.1f) {
+        position.x += (target.x - position.x) * lerpFactor;
+        position.y += (target.y - position.y) * lerpFactor;
+    }
+
+    vec2 getPosition() const { return position; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+
+private:
     vec2 position;
-
-    Camera() : position(0, 0) {}
-
-    void move(float dx, float dy) {
-        position.x += dx;
-        position.y += dy;
-    }
-
-    // Get the offset X position
-    int offsetX() const {
-        return static_cast<int>(position.x);
-    }
-
-    // Get the offset Y position
-    int offsetY() const {
-        return static_cast<int>(position.y);
-    }
+    int width;
+    int height;
 };

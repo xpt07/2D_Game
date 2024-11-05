@@ -12,7 +12,7 @@ int main() {
 	bool running = true; // Variable to control the main loop's running state.
 
 	Background background;
-	Player player("resources/mainShip.png", vec2((canvas.getWidth() / 2), 2 * canvas.getHeight() / 3));
+	Player player(vec2((canvas.getWidth() / 2), 2 * canvas.getHeight() / 3));
 
 
 	Timer tim;
