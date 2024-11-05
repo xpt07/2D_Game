@@ -12,9 +12,9 @@ public:
 	virtual ~Characters() = default;
 	virtual void onUpdate(Window& window) = 0;
 	void draw(Window& w);
+	vec2 getPos() { return pos; }
 
 protected:
 	Image image;
-	Window window;
 	vec2 pos;
 };

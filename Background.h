@@ -37,7 +37,7 @@ public:
 		}
 	}
 
-	void draw(Window& canvas, int y)
+	void draw(Window& canvas, int x, int y)
 	{
 		for (unsigned int i = 0; i < sprite.width; i++)
 			if (y + i > 0 && (y + i) < (canvas.getWidth()))
