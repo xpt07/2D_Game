@@ -27,5 +27,10 @@ public:
 		float res = sqrtf(this->x + this->y);
 	}
 
+	vec2 operator+(const vec2& v) const
+	{
+		return vec2(x + v.x, y + v.y);
+	}
+
 private:
 };

@@ -1,16 +1,9 @@
 #include "Player.h"
 
+Player::Player() : Characters("resources/mainShip.png", vec2(0, 0)) {}
 
-Player::Player(vec2 startPos) : Characters("resources/mainShip.png", startPos)
-{
-}
-
-void Player::onUpdate(GamesEngineeringBase::Window& window)
-{
-    int moveSpeed = 2;
-
-    if (window.keyPressed('W')) pos.y -= moveSpeed;
-    if (window.keyPressed('S')) pos.y += moveSpeed;
-    if (window.keyPressed('A')) pos.x -= moveSpeed;
-    if (window.keyPressed('D')) pos.x += moveSpeed;
+void Player::draw(Window& window) {
+    // Draw player at a fixed position on the screen (e.g., the center)
+    vec2 fixedScreenPosition(window.getWidth() / 2, window.getHeight() / 2);
+    Characters::draw(window, fixedScreenPosition);
 }

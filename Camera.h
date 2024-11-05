@@ -5,7 +5,7 @@ class Camera {
 public:
     Camera(int width, int height) : width(width), height(height), position(0, 0) {}
 
-    void follow(const vec2& target, float lerpFactor = 0.1f) {
+    void follow(const vec2& target, float lerpFactor = 0.5f) {
         position.x += (target.x - position.x) * lerpFactor;
         position.y += (target.y - position.y) * lerpFactor;
     }

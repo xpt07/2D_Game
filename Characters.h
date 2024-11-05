@@ -2,19 +2,15 @@
 #include "vec2.h"
 #include "GamesEngineeringBase.h"
 
-using namespace std;
 using namespace GamesEngineeringBase;
 
-class Characters
-{
+class Characters {
 public:
-	Characters(string sImage, vec2 startPos);
-	virtual ~Characters() = default;
-	virtual void onUpdate(Window& window) = 0;
-	void draw(Window& w);
-	vec2 getPos() { return pos; }
+    Characters(const std::string& sImage, vec2 startPos);
+    virtual ~Characters() = default;
+    virtual void draw(Window& window, const vec2& position);
 
 protected:
-	Image image;
-	vec2 pos;
+    Image image;
+    vec2 pos;
 };
