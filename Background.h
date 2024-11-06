@@ -135,6 +135,22 @@ public:
         }
     }
 
+    bool isTilePassable(int x, int y) const {
+        // Wrap the x and y coordinates around the grid
+        int gridX = x % GRID_WIDTH;
+        int gridY = y % GRID_HEIGHT;
+        if (gridX < 0) gridX += GRID_WIDTH;
+        if (gridY < 0) gridY += GRID_HEIGHT;
+
+        // Check tile type and return passability
+        TileType tileType = tileGrid[gridY][gridX];
+
+        if (tileType == TileType::ASTEROID1 || tileType == TileType::ASTEROID2)
+            return false;
+        else
+            return true;
+    }
+
 private:
     Tile mainTile;
     Tile starfieldTile;

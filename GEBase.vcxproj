@@ -130,7 +130,9 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Characters.h" />
-    <ClInclude Include="Circle.h" />
+    <ClInclude Include="circle.h" />
+    <ClInclude Include="core.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GamesEngineeringBase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
@@ -139,14 +141,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Characters.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\background\asteroid2_tile.png" />
     <Image Include="resources\background\asteroid_tile.png" />
     <Image Include="resources\background\space_empty_tile.png" />
     <Image Include="resources\background\starfield_tile.png" />
+    <Image Include="resources\kamikaze_plane_sprite.png" />
     <Image Include="resources\mainShip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

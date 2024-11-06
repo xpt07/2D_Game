@@ -3,19 +3,17 @@
 
 class Camera {
 public:
-    Camera(int width, int height) : width(width), height(height), position(0, 0) {}
+    Camera(int windowWidth, int windowHeight)
+        : windowWidth(windowWidth), windowHeight(windowHeight) {}
 
-    void follow(const vec2& target, float lerpFactor = 0.5f) {
-        position.x += (target.x - position.x) * lerpFactor;
-        position.y += (target.y - position.y) * lerpFactor;
+    void follow(const vec2& target) {
+        // Center the camera on the target
+        position = target - vec2(windowWidth / 2, windowHeight / 2);
     }
 
     vec2 getPosition() const { return position; }
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
 
 private:
     vec2 position;
-    int width;
-    int height;
+    int windowWidth, windowHeight;
 };

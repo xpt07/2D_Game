@@ -1,20 +1,15 @@
 #pragma once
 #include "Characters.h"
 
-enum class missiles{ playerRay = 0, EnergyBall, };
+enum class EnemyType { Kamikaze = 0, Bomber };
 
-class Missile : public Characters
-{
+class Enemy : public Characters {
 public:
-	Missile(vec2 spawnPos, string missileImage) : Characters(missileImage, spawnPos)
-	{
-		spawnPos = vec2((1024 / 2), (2 * 768 / 3));
-	}
-
-	void onUpdate(GamesEngineeringBase::Window& window) override {
-
-	}
+    Enemy(const std::string& sImage, vec2 startPos, EnemyType type);
+    void onUpdate() override;
+    EnemyType getType() const { return type; }
 
 private:
+    EnemyType type;
+    vec2 position;
 };
-

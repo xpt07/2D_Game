@@ -1,6 +1,9 @@
 #pragma once
+#include <memory>
+#include "core.h"
 #include "vec2.h"
 #include "GamesEngineeringBase.h"
+#include "circle.h"
 
 using namespace GamesEngineeringBase;
 
@@ -8,9 +11,11 @@ class Characters {
 public:
     Characters(const std::string& sImage, vec2 startPos);
     virtual ~Characters() = default;
-    virtual void draw(Window& window, const vec2& position);
-
+    void draw(Window& window, const vec2& cameraOffset);
+    virtual void onUpdate() {}
+    Shape* getHitbox() const { return hitbox.get(); }
 protected:
     Image image;
     vec2 pos;
+    std::unique_ptr<Shape> hitbox;
 };

@@ -8,6 +8,11 @@ public:
 		s(_s), e(_e)
 	{}
 
+	void setPosition(vec2 newStart, vec2 newEnd) {
+		s = newStart;
+		e = newEnd;
+	}
+
 	bool inside(vec2 p) override {
 		if (p.x <= e.x && p.x >= s.x)
 			if (p.y <= e.y && p.y >= s.y)

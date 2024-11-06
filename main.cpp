@@ -1,12 +1,7 @@
+#include"core.h"
 #include "Player.h"
-#include "Rect.h"
-#include "vec2.h"
-#include "Camera.h"
-#include "Background.h"
+#include "Enemy.h"
 
-constexpr int WINDOW_WIDTH = 1024;
-constexpr int WINDOW_HEIGHT = 768;
-constexpr float CAMERA_SPEED = 2.0f;
 
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
@@ -15,11 +10,11 @@ int main() {
     canvas.create(WINDOW_WIDTH, WINDOW_HEIGHT, "Space Game");
     bool running = true;
 
-    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
     Background background;
+    Enemy kamikaze("resources/kamikaze_plane_sprite.png", vec2(200, 100), EnemyType::Kamikaze);
     Player player;
+    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    // Load the single tile for the infinite background
     background.load();
 
     Timer tim;
@@ -37,14 +32,23 @@ int main() {
         if (canvas.keyPressed('A')) movement.x -= CAMERA_SPEED;
         if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
 
-        // Move the camera based on player input
-        camera.follow(camera.getPosition() + movement);
+        // Update player position
+        player.getPosition() += movement;
 
-        // Draw the infinite background
+        // Move the camera to follow the player
+        camera.follow(player.getPosition());
+
+        // Draw the background relative to the camera
         background.draw(canvas, camera);
 
-        // Draw the player at the center of the screen
-        player.draw(canvas);
+        // Update and draw the player
+        player.onUpdate();
+        player.draw(canvas, camera.getPosition());
+
+        // Update and draw the enemy
+        kamikaze.onUpdate();
+        kamikaze.draw(canvas, camera.getPosition());
+ 
 
         canvas.present();
     }
