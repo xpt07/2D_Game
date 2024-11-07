@@ -23,8 +23,8 @@ void Characters::draw(Window& window, const vec2& cameraOffset) {
         }
     }
 
-    // Draw the hitbox for debugging purposes
-    if (hitbox) {
-        hitbox->draw(window);
-    }
+    //// Draw the hitbox for debugging purposes
+    //if (hitbox) {
+    //    hitbox->draw(window);
+    //}
 }

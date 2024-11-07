@@ -60,5 +60,11 @@ public:
 		y += v.y;
 	}
 
+	void operator-=(const vec2& v)
+	{
+		x -= v.x;
+		y -= v.y;
+	}
+
 private:
 };

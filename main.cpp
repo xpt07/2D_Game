@@ -11,8 +11,8 @@ int main() {
     bool running = true;
 
     Background background;
-    Enemy kamikaze("resources/kamikaze_plane_sprite.png", vec2(200, 100), EnemyType::Kamikaze);
-    Player player;
+    Enemy* kamikaze = new Enemy("resources/kamikaze_plane_sprite.png", vec2(200, 100), EnemyType::Kamikaze);
+    Player* player = new Player();
     Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     background.load();
@@ -33,22 +33,21 @@ int main() {
         if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
 
         // Update player position
-        player.pos += movement;
+        player->pos += movement;
 
         // Move the camera to follow the player
-        camera.follow(player.getPosition());
+        camera.follow(player->getPosition());
 
         // Draw the background relative to the camera
         background.draw(canvas, camera);
 
         // Update and draw the player
-        player.onUpdate();
-        player.draw(canvas, camera.getPosition());
+        player->onUpdate();
+        player->draw(canvas, camera.getPosition());
 
         // Update and draw the enemy
-        kamikaze.onUpdate();
-        kamikaze.draw(canvas, camera.getPosition());
- 
+        kamikaze->onUpdate(player->getPosition());
+        kamikaze->draw(canvas, camera.getPosition());
 
         canvas.present();
     }

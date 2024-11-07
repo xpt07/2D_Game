@@ -13,6 +13,7 @@ public:
     virtual ~Characters() = default;
     void draw(Window& window, const vec2& cameraOffset);
     virtual void onUpdate() {}
+    virtual void onUpdate(vec2 target) {}
     Shape* getHitbox() const { return hitbox.get(); }
     vec2 pos;
 protected:
