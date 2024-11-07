@@ -1,20 +1,21 @@
 #pragma once
+#include <memory>
+#include "core.h"
 #include "vec2.h"
 #include "GamesEngineeringBase.h"
+#include "circle.h"
 
-using namespace std;
 using namespace GamesEngineeringBase;
 
-class Characters
-{
+class Characters {
 public:
-	Characters(string sImage, vec2 startPos);
-	virtual ~Characters() = default;
-	virtual void onUpdate(Window& window) = 0;
-	void draw(Window& w);
-
+    Characters(const std::string& sImage, vec2 startPos);
+    virtual ~Characters() = default;
+    void draw(Window& window, const vec2& cameraOffset);
+    virtual void onUpdate() {}
+    Shape* getHitbox() const { return hitbox.get(); }
+    vec2 pos;
 protected:
-	Image image;
-	Window window;
-	vec2 pos;
+    Image image;
+    std::unique_ptr<Shape> hitbox;
 };

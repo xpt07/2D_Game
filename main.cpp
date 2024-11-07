@@ -1,45 +1,56 @@
+#include"core.h"
 #include "Player.h"
-#include "Rect.h"
-#include "vec2.h"
-#include "Camera.h"
-#include "Background.h"
+#include "Enemy.h"
+
 
 int main() {
-	srand(static_cast<unsigned int>(time(nullptr)));
-	// Create a canvas window with dimensions 1024x768 and title “Tiles"
-	GamesEngineeringBase::Window canvas;
-	canvas.create(1024, 768, "Space Game");
-	bool running = true; // Variable to control the main loop's running state.
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-	Background background;
-	Player player("resources/mainShip.png", vec2((canvas.getWidth() / 2), 2 * canvas.getHeight() / 3));
+    GamesEngineeringBase::Window canvas;
+    canvas.create(WINDOW_WIDTH, WINDOW_HEIGHT, "Space Game");
+    bool running = true;
 
+    Background background;
+    Enemy kamikaze("resources/kamikaze_plane_sprite.png", vec2(200, 100), EnemyType::Kamikaze);
+    Player player;
+    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	Timer tim;
-	int x = 0;
+    background.load();
 
-	while (running)
-	{
-		// Check for input (key presses or window events)
-		canvas.checkInput();
+    Timer tim;
 
-		// Clear the window for the next frame rendering
-		canvas.clear();
+    while (running) {
+        canvas.checkInput();
+        canvas.clear();
 
-		float dt = tim.dt();
-		int move = static_cast<int>((500.f * dt));
+        if (canvas.keyPressed(VK_ESCAPE)) break;
 
-		if (canvas.keyPressed(VK_ESCAPE)) break;
+        // Calculate movement based on input
+        vec2 movement(0, 0);
+        if (canvas.keyPressed('W')) movement.y -= CAMERA_SPEED;
+        if (canvas.keyPressed('S')) movement.y += CAMERA_SPEED;
+        if (canvas.keyPressed('A')) movement.x -= CAMERA_SPEED;
+        if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
 
-		// Update game logic
-		player.onUpdate(canvas);
+        // Update player position
+        player.pos += movement;
 
-		x += 2;
-		background.draw(canvas, x);
-		player.draw(canvas);
+        // Move the camera to follow the player
+        camera.follow(player.getPosition());
 
-		// Display the frame on the screen. This must be called once the frame is finished in order to display the frame.
-		canvas.present();
-	}
-	return 0;
+        // Draw the background relative to the camera
+        background.draw(canvas, camera);
+
+        // Update and draw the player
+        player.onUpdate();
+        player.draw(canvas, camera.getPosition());
+
+        // Update and draw the enemy
+        kamikaze.onUpdate();
+        kamikaze.draw(canvas, camera.getPosition());
+ 
+
+        canvas.present();
+    }
+    return 0;
 }

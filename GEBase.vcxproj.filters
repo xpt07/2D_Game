@@ -16,34 +16,49 @@
     <Filter Include="Header Files\Hitboxes">
       <UniqueIdentifier>{585fc64f-24f4-4e8d-8780-12c6eff47339}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{b244f33d-6ba8-4f46-83f4-4755a6150ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{d480fdf3-d5b3-41b9-869e-83024defecab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{836b1bb2-9b5b-4ef1-97ae-57105f05e939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GamesEngineeringBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vec2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shape.h">
       <Filter>Header Files\Hitboxes</Filter>
     </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Header Files\Hitboxes</Filter>
     </ClInclude>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files\Hitboxes</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GamesEngineeringBase.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vec2.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>Header Files\Hitboxes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="core.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,98 +66,29 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Characters.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\L.png">
+    <Image Include="resources\background\starfield_tile.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\background\Space_Background1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background5.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background6.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background0.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background5.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background6.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background7.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background8.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\background9.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\Space_Background0.png">
+    <Image Include="resources\background\space_empty_tile.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\mainShip.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\background\bg0.png">
+    <Image Include="resources\background\asteroid_tile.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\background\bg1.png">
+    <Image Include="resources\background\asteroid2_tile.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\background\bg2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg5.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg6.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg7.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg8.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\background\bg9.png">
+    <Image Include="resources\kamikaze_plane_sprite.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

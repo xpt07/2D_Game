@@ -1,25 +1,19 @@
 #pragma once
 #include "vec2.h"
 
-class Camera
-{
+class Camera {
 public:
+    Camera(int windowWidth, int windowHeight)
+        : windowWidth(windowWidth), windowHeight(windowHeight) {}
+
+    void follow(const vec2& target) {
+        // Center the camera on the target
+        position = target - vec2(windowWidth / 2, windowHeight / 2);
+    }
+
+    vec2 getPosition() const { return position; }
+
+private:
     vec2 position;
-
-    Camera() : position(0, 0) {}
-
-    void move(float dx, float dy) {
-        position.x += dx;
-        position.y += dy;
-    }
-
-    // Get the offset X position
-    int offsetX() const {
-        return static_cast<int>(position.x);
-    }
-
-    // Get the offset Y position
-    int offsetY() const {
-        return static_cast<int>(position.y);
-    }
+    int windowWidth, windowHeight;
 };
