@@ -14,8 +14,8 @@ public:
     void draw(Window& window, const vec2& cameraOffset);
     virtual void onUpdate() {}
     Shape* getHitbox() const { return hitbox.get(); }
+    vec2 pos;
 protected:
     Image image;
-    vec2 pos;
     std::unique_ptr<Shape> hitbox;
 };

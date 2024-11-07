@@ -33,7 +33,7 @@ int main() {
         if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
 
         // Update player position
-        player.getPosition() += movement;
+        player.pos += movement;
 
         // Move the camera to follow the player
         camera.follow(player.getPosition());
