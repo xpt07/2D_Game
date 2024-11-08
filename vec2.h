@@ -38,6 +38,16 @@ public:
 		return vec2(x - v.x, y - v.y);
 	}
 
+	vec2 operator-(const float& v) const
+	{
+		return vec2(x - v, y - v);
+	}
+
+	vec2 operator+(const float& v) const
+	{
+		return vec2(x + v, y + v);
+	}
+
 	vec2 operator/(const float value) const
 	{
 		if (value != 0) {
@@ -46,6 +56,16 @@ public:
 		else {
 			std::cerr << "Attempt to divide by zero." << std::endl;
 			return *this; // Return the original vector if divide by zero
+		}
+	}
+
+	void operator/=(const float value) {
+		if (value != 0) {
+			x /= value;
+			y /= value;
+		}
+		else {
+			std::cerr << "Attempt to divide by zero." << std::endl;
 		}
 	}
 

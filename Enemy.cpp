@@ -1,36 +1,66 @@
 #include "Enemy.h"
+#include "Projectile.h"
 #include <cmath>
 
-Enemy::Enemy(const std::string& sImage, vec2 startPos, EnemyType type) : 
-    Characters(sImage, startPos), type(type), position(startPos)
+Enemy::Enemy(const std::string& sImage, vec2 startPos, ObjectType type, float _speed) : 
+    GameObject(sImage, startPos, type), speed(_speed)
 {}
 
-void Enemy::onUpdate(vec2 target) {
-    vec2 direction = target - pos;
+KamikazeEnemy::KamikazeEnemy(vec2 startPos) 
+    : Enemy("resources/kamikaze_plane_sprite.png", startPos, ObjectType::Kamikaze, 2.0f) {}
 
+void KamikazeEnemy::onUpdate(vec2 target, float deltaTime) {
+    vec2 direction = target - pos;
     float length = std::sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-    // Normalize the direction vector to unit length
-    if (length != 0) {  // To prevent division by zero
+    if (length != 0) {
+        // Normalize the direction vector
+        direction.x /= length;
+        direction.y /= length;
+    }
+    pos.x += direction.x * speed;
+    pos.y += direction.y * speed;
+}
+
+BomberEnemy::BomberEnemy(vec2 startPos) :
+    Enemy("resources/bomber_plane_sprite.png", startPos, ObjectType::Bomber, 1.5f) {}
+
+void BomberEnemy::onUpdate(vec2 target, float deltaTime) {
+    vec2 direction = target - pos;
+    float length = std::sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+
+    if (length != 0) {
         direction.x /= length;
         direction.y /= length;
     }
 
-    // Move the enemy a small step in the direction of the player
-    float speed = 2.0f;  // Adjust this value to control the speed of the enemy
-
-    // Example behavior based on enemy type
-    if (type == EnemyType::Kamikaze) {
+    if (length > attackDistance) {
         pos.x += direction.x * speed;
         pos.y += direction.y * speed;
     }
-    else if (type == EnemyType::Bomber) {
 
+    // Only shoot if the cooldown timer has expired
+    if (cooldownTimer > 0) {
+        cooldownTimer -= deltaTime;  // Decrease cooldown timer (assuming ~60 FPS, so 1 frame ~ 0.016s)
+        return;
+    }
+}
 
+void BomberEnemy::shootAtPlayer(vec2 playerPos, std::vector<std::unique_ptr<Projectile>>& projectiles)
+{
+    if (cooldownTimer > 0) return;
+
+    // Calculate the direction to the player
+    vec2 direction = playerPos - pos;
+    float length = std::sqrt(std::pow(direction.x, 2) + std::pow(direction.y, 2));
+    if (length != 0) {
+        direction.x /= length;
+        direction.y /= length;
     }
 
-    // Update the position of the hitbox to stay aligned with the enemy
-    if (Circle* circ = dynamic_cast<Circle*>(hitbox.get())) {
-        circ->setCenter(vec2(pos.x + image.width / 2.0f, pos.y + image.height / 2.0f));
-    }
+    // Create a projectile aimed at the player
+    projectiles.push_back(std::make_unique<Projectile>(vec2(pos.x, pos.y), direction, ObjectType::Bomber));
+
+    // Reset the cooldown timer
+    cooldownTimer = cooldownDuration;
 }

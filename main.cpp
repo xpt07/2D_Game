@@ -1,6 +1,8 @@
 #include"core.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "CollisionManager.h"
+#include "Level.h"
 
 
 int main() {
@@ -11,13 +13,17 @@ int main() {
     bool running = true;
 
     Background background;
-    Enemy* kamikaze = new Enemy("resources/kamikaze_plane_sprite.png", vec2(200, 100), EnemyType::Kamikaze);
-    Player* player = new Player();
+    auto player = std::make_unique<Player>();
+    std::vector<std::unique_ptr<GameObject>> enemies;
+    std::vector<std::unique_ptr<Projectile>> projectiles;
     Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     background.load();
+    Level level(1, WINDOW_WIDTH, 20);
 
-    Timer tim;
+    Timer timer;
+    float waveDelay = 1.0f;
+    float waveTimer = 0.0f;
 
     while (running) {
         canvas.checkInput();
@@ -25,29 +31,44 @@ int main() {
 
         if (canvas.keyPressed(VK_ESCAPE)) break;
 
-        // Calculate movement based on input
-        vec2 movement(0, 0);
-        if (canvas.keyPressed('W')) movement.y -= CAMERA_SPEED;
-        if (canvas.keyPressed('S')) movement.y += CAMERA_SPEED;
-        if (canvas.keyPressed('A')) movement.x -= CAMERA_SPEED;
-        if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
+        // Update the timer
+        float deltaTime = timer.dt();
+        waveTimer += deltaTime;
 
-        // Update player position
-        player->pos += movement;
-
-        // Move the camera to follow the player
-        camera.follow(player->getPosition());
+        if (waveTimer >= waveDelay) {
+            waveTimer = 0.0f;
+            level.spawnEnemies(enemies, player->getPosition());
+        }
 
         // Draw the background relative to the camera
         background.draw(canvas, camera);
 
         // Update and draw the player
-        player->onUpdate();
+        player->onUpdate(canvas, deltaTime);
+        player->shootAtNearestEnemy(enemies, projectiles);
+        // Move the camera to follow the player
+        camera.follow(player->getPosition());
         player->draw(canvas, camera.getPosition());
 
-        // Update and draw the enemy
-        kamikaze->onUpdate(player->getPosition());
-        kamikaze->draw(canvas, camera.getPosition());
+        for (auto& enemy : enemies) {
+            enemy->onUpdate(player->getPosition(), deltaTime);
+
+            // If the enemy is a BomberEnemy, make it shoot at the player
+            BomberEnemy* bomber = dynamic_cast<BomberEnemy*>(enemy.get());
+            if (bomber) {
+                bomber->shootAtPlayer(player->getPosition(), projectiles);
+            }
+
+            enemy->draw(canvas, camera.getPosition());
+        }
+
+        // Update and draw projectiles
+        for (auto& projectile : projectiles) {
+            projectile->onUpdate();
+            projectile->draw(canvas, camera.getPosition());
+        }
+
+        CollisionManager::checkCollisions(player.get(), enemies, projectiles);
 
         canvas.present();
     }

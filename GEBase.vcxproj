@@ -129,20 +129,24 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Characters.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="circle.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GamesEngineeringBase.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="vec2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Characters.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\background\asteroid2_tile.png" />

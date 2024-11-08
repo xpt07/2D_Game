@@ -29,9 +29,13 @@ public:
         }
     }
 
-    void setCenter(vec2 newCentre) {
+    void setCentre(vec2 newCentre) {
         centre = newCentre;
     }
+
+    vec2 getCenter() { return centre; }
+
+    float getRadius() { return radius; }
 
 private:
     vec2 centre;

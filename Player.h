@@ -1,16 +1,22 @@
 #pragma once
-#include "Characters.h"
-#include "Rect.h"
+#include "GameObject.h"
+#include "Projectile.h"
+#include <vector>
 
-class Player : public Characters {
+class Player : public GameObject {
 public:
-    Player() : Characters("resources/mainShip.png", vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT /2)) {}
+    Player();
+
+    void onUpdate(Window& canvas, float deltaTime) override;
+    void shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles);
+
     vec2 getPosition() const { return pos; }
-    void onUpdate() override
-    {
-        // Update the position of the hitbox to stay aligned with the enemy
-        if (Circle* circ = dynamic_cast<Circle*>(hitbox.get())) {
-            circ->setCenter(vec2(pos.x + image.width / 2.0f, pos.y + image.height / 2.0f));
-        }
-    }
+
+    void takeDamage(int amount);
+
+    bool isAlive() const { return health > 0; }
+
+private:
+    float cooldownTimer;       // Timer to track cooldown
+    const float cooldownDuration = 1.0f;  // Cooldown duration in seconds
 };
