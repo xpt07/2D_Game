@@ -4,7 +4,6 @@
 #include "CollisionManager.h"
 #include "Level.h"
 
-
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -13,12 +12,16 @@ int main() {
     bool running = true;
 
     Background background;
+
     auto player = std::make_unique<Player>();
     std::vector<std::unique_ptr<GameObject>> enemies;
     std::vector<std::unique_ptr<Projectile>> projectiles;
     Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
     background.load();
-    Level level(1, WINDOW_WIDTH, 20);
+
+    Level level(1, WINDOW_WIDTH, 20, LevelType::FixedBoundary);
+    int enemiesDefeated = 0;
+    int enemiesToDefeatToAdvance = 10;
 
     Timer timer;
     float waveDelay = 1.0f;
@@ -30,7 +33,6 @@ int main() {
 
         if (canvas.keyPressed(VK_ESCAPE)) break;
 
-        // Update the timer
         float deltaTime = timer.dt();
         waveTimer += deltaTime;
 
@@ -39,20 +41,15 @@ int main() {
             level.spawnEnemies(enemies, player->getPosition());
         }
 
-        // Draw the background relative to the camera
         background.draw(canvas, camera);
-
-        // Update and draw the player
         player->onUpdate(canvas, deltaTime, background, camera);
         player->shootAtNearestEnemy(enemies, projectiles);
-        // Move the camera to follow the player
         camera.follow(player->getPosition());
         player->draw(canvas, camera.getPosition());
 
         for (auto& enemy : enemies) {
             enemy->onUpdate(player->getPosition(), deltaTime);
 
-            // If the enemy is a BomberEnemy, make it shoot at the player
             BomberEnemy* bomber = dynamic_cast<BomberEnemy*>(enemy.get());
             if (bomber) {
                 bomber->shootAtPlayer(player->getPosition(), projectiles);
@@ -61,13 +58,21 @@ int main() {
             enemy->draw(canvas, camera.getPosition());
         }
 
-        // Update and draw projectiles
         for (auto& projectile : projectiles) {
             projectile->onUpdate();
             projectile->draw(canvas, camera.getPosition());
         }
 
-        CollisionManager::checkCollisions(player.get(), enemies, projectiles, camera);
+        CollisionManager::checkCollisions(player.get(), enemies, projectiles, camera, enemiesDefeated);
+
+
+        // Check if it's time to switch to the infinite world level
+        if (enemiesDefeated >= enemiesToDefeatToAdvance && level.getLevelType() == LevelType::FixedBoundary) {
+            level.setLevelType(LevelType::InfiniteWorld);
+            background.setInfiniteWorld(true);
+            enemiesDefeated = 0;  // Reset the counter
+            std::cout << "Level up! Switched to infinite world!" << std::endl;
+        }
 
         canvas.present();
     }

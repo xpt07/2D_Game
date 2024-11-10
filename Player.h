@@ -11,12 +11,10 @@ public:
     void shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles);
 
     vec2 getPosition() const { return pos; }
-
     void takeDamage(int amount);
-
     bool isAlive() const { return health > 0; }
 
 private:
-    float cooldownTimer;       // Timer to track cooldown
-    const float cooldownDuration = 1.0f;  // Cooldown duration in seconds
+    float cooldownTimer;
+    const float cooldownDuration = 1.0f;
 };

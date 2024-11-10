@@ -4,14 +4,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "core.h"
-//#include "Player.h"
-
-
-
-const int TILE_WIDTH = 32;
-const int TILE_HEIGHT = 32;
-const int GRID_WIDTH = 50;  // Dimensions for the random tile grid
-const int GRID_HEIGHT = 50;
 
 using namespace GamesEngineeringBase;
 
@@ -57,7 +49,7 @@ private:
 
 class Background {
 public:
-    Background() = default;
+    Background() : isInfiniteWorld(false) {}
 
     // Load all tile images and initialize the random grid
     void load() {
@@ -98,50 +90,45 @@ public:
         int offsetX = camX % TILE_WIDTH;
         int offsetY = camY % TILE_HEIGHT;
 
-        // Calculate the number of tiles to cover the screen
         int tilesX = (canvas.getWidth() / TILE_WIDTH) + 2;
         int tilesY = (canvas.getHeight() / TILE_HEIGHT) + 2;
 
-        // Loop over a grid to draw tiles in a 3x3 pattern around the camera
         for (int i = -1; i < tilesX - 1; i++) {
             for (int j = -1; j < tilesY - 1; j++) {
-                // Wrap the tile grid around to create an infinite effect
-                int gridX = (camX / TILE_WIDTH + i) % GRID_WIDTH;
-                int gridY = (camY / TILE_HEIGHT + j) % GRID_HEIGHT;
+                int gridX = (camX / TILE_WIDTH + i);
+                int gridY = (camY / TILE_HEIGHT + j);
 
-                // Ensure we wrap correctly for negative positions
-                if (gridX < 0) gridX += GRID_WIDTH;
-                if (gridY < 0) gridY += GRID_HEIGHT;
+                if (isInfiniteWorld) {
+                    // Wrap coordinates for infinite scrolling
+                    gridX %= GRID_WIDTH;
+                    gridY %= GRID_HEIGHT;
+                    if (gridX < 0) gridX += GRID_WIDTH;
+                    if (gridY < 0) gridY += GRID_HEIGHT;
+                }
+                else {
+                    // Check boundaries for fixed world
+                    if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT) continue;
+                }
 
-                // Select the tile type from the grid
                 TileType tileType = tileGrid[gridY][gridX];
-
-                // Calculate where to draw this tile on the screen
                 int drawX = (i * TILE_WIDTH) - offsetX;
                 int drawY = (j * TILE_HEIGHT) - offsetY;
 
-                switch (tileType)
-                {
-                case MAIN_TILE:
-                    mainTile.draw(canvas, drawX, drawY);
-                    break;
-                case STARFIELD:
-                    starfieldTile.draw(canvas, drawX, drawY);
-                    break;
-                case ASTEROID1:
-                    asteroidTile.draw(canvas, drawX, drawY);
-                    break;
-                case ASTEROID2:
-                    asteroid2Tile.draw(canvas, drawX, drawY);
-                    break;
-                default:
-                    break;
+                switch (tileType) {
+                case MAIN_TILE: mainTile.draw(canvas, drawX, drawY); break;
+                case STARFIELD: starfieldTile.draw(canvas, drawX, drawY); break;
+                case ASTEROID1: asteroidTile.draw(canvas, drawX, drawY); break;
+                case ASTEROID2: asteroid2Tile.draw(canvas, drawX, drawY); break;
+                default: break;
                 }
             }
         }
     }
 
-    bool isPositionBlocked(const vec2& position, Camera& camera) {
+    void setInfiniteWorld(bool infinite) { isInfiniteWorld = infinite; }
+    bool IsInfiniteWorld() const { return isInfiniteWorld; }
+
+    bool isPositionBlocked(const vec2& position, Camera& camera) const {
 
         // Player's bounding box dimensions
         int playerWidth = 48;  // Adjust based on your player's actual width
@@ -179,11 +166,10 @@ public:
     }
 
 private:
-    Tile mainTile;
-    Tile starfieldTile;
-    Tile asteroidTile;
-    Tile asteroid2Tile;
+    Tile mainTile, starfieldTile, asteroidTile, asteroid2Tile;
 
     // 2D array to hold the layout of tiles for infinite scrolling
     TileType tileGrid[GRID_HEIGHT][GRID_WIDTH];
+
+    bool isInfiniteWorld;
 };

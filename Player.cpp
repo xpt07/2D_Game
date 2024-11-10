@@ -8,28 +8,33 @@ Player::Player():
 void Player::onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera)
 {
     vec2 movement(0, 0);
-    if (canvas.keyPressed('W')) movement.y -= CAMERA_SPEED;
-    if (canvas.keyPressed('S')) movement.y += CAMERA_SPEED;
-    if (canvas.keyPressed('A')) movement.x -= CAMERA_SPEED;
-    if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
+    if (canvas.keyPressed('W')) movement.y -= PLAYER_SPEED;
+    if (canvas.keyPressed('S')) movement.y += PLAYER_SPEED;
+    if (canvas.keyPressed('A')) movement.x -= PLAYER_SPEED;
+    if (canvas.keyPressed('D')) movement.x += PLAYER_SPEED;
 
     vec2 newPosition = pos + movement;
 
-    if (!background.isPositionBlocked(newPosition, camera)) {
-        pos = newPosition;  // Only update position if it's not blocked
+    if (!background.IsInfiniteWorld()) {  // Assuming isInfiniteWorld() is the method to check
+        if (newPosition.x < 0.0f) newPosition.x = 0.0f;
+        if (newPosition.x > GRID_WIDTH * TILE_WIDTH - image.width) newPosition.x = GRID_WIDTH * TILE_WIDTH - image.width;
+        if (newPosition.y < 0.0f) newPosition.y = 0.0f;
+        if (newPosition.y > GRID_HEIGHT * TILE_HEIGHT - image.height) newPosition.y = GRID_HEIGHT * TILE_HEIGHT - image.height;
     }
 
-    // Update the cooldown timer
+    if (!background.isPositionBlocked(newPosition, camera)) {
+        pos = newPosition;
+    }
+
     if (this->cooldownTimer > 0) {
-        this->cooldownTimer -= deltaTime;  // Assuming getDeltaTime() returns time in seconds
+        this->cooldownTimer -= deltaTime;
     }
 
 }
 
 void Player::shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles)
 {
-    // Initialize the closest distance as -1 to signify no enemy found yet
-    // Only shoot if the cooldown has expired
+
     if (cooldownTimer > 0) return;
 
     float closestDistance = -1.0f;
@@ -56,7 +61,6 @@ void Player::shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemi
 
         projectiles.push_back(std::make_unique<Projectile>(vec2(pos.x + 25, pos.y), direction, ObjectType::Player));
 
-        // Reset the cooldown timer after shooting
         cooldownTimer = cooldownDuration;
     }
 }

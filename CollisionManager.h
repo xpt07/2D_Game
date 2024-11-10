@@ -3,15 +3,16 @@
 #include "Projectile.h"
 #include <vector>
 #include <cmath>
-#include <algorithm>  // For std::remove_if
+#include <algorithm>
 
 class CollisionManager {
 public:
     static void checkCollisions(Player* player,
         std::vector<std::unique_ptr<GameObject>>& enemies,
         std::vector<std::unique_ptr<Projectile>>& projectiles,
-        const Camera& camera) {
-        handleProjectileEnemyCollisions(enemies, projectiles);
+        const Camera& camera,
+        int& enemiesDefeated) {
+        handleProjectileEnemyCollisions(enemies, projectiles, enemiesDefeated);
         removeOffScreenProjectiles(projectiles, camera);
         handlePlayerEnemyCollisions(player, enemies);
     }
@@ -19,7 +20,8 @@ public:
 private:
     // Function to handle collisions between projectiles and enemies
     static void handleProjectileEnemyCollisions(std::vector<std::unique_ptr<GameObject>>& enemies,
-        std::vector<std::unique_ptr<Projectile>>& projectiles) {
+        std::vector<std::unique_ptr<Projectile>>& projectiles, 
+        int& enemiesDefeated) {
         for (auto it = projectiles.begin(); it != projectiles.end(); ) {
             bool shouldRemoveProjectile = false;
 
@@ -32,6 +34,7 @@ private:
                 if (checkCollision(it->get(), enemyIt->get())) {
                     shouldRemoveProjectile = true;
                     enemyIt = enemies.erase(enemyIt);  // Remove enemy
+                    ++enemiesDefeated;
                 }
                 else {
                     ++enemyIt;
@@ -99,4 +102,6 @@ private:
             }
         }
     }
+
+    int enemiesDefeated = 0;
 };
