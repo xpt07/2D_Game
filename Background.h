@@ -3,8 +3,10 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include "GamesEngineeringBase.h"
-#include "Camera.h"
+#include "core.h"
+//#include "Player.h"
+
+
 
 const int TILE_WIDTH = 32;
 const int TILE_HEIGHT = 32;
@@ -43,6 +45,10 @@ public:
                 }
             }
         }
+    }
+
+    bool isOpaque(int x, int y) {
+        return sprite.alphaAt(x, y) > 200;  // Assuming 200 as the threshold for opacity
     }
 
 private:
@@ -135,20 +141,41 @@ public:
         }
     }
 
-    bool isTilePassable(int x, int y) const {
-        // Wrap the x and y coordinates around the grid
-        int gridX = x % GRID_WIDTH;
-        int gridY = y % GRID_HEIGHT;
-        if (gridX < 0) gridX += GRID_WIDTH;
-        if (gridY < 0) gridY += GRID_HEIGHT;
+    bool isPositionBlocked(const vec2& position, Camera& camera) {
 
-        // Check tile type and return passability
-        TileType tileType = tileGrid[gridY][gridX];
+        // Player's bounding box dimensions
+        int playerWidth = 48;  // Adjust based on your player's actual width
+        int playerHeight = 48; // Adjust based on your player's actual height
 
-        if (tileType == TileType::ASTEROID1 || tileType == TileType::ASTEROID2)
-            return false;
-        else
-            return true;
+        // Calculate the offset to center the bounding box around the player's position
+        float halfWidth = playerWidth / 2.0f;
+        float halfHeight = playerHeight / 2.0f;
+
+        // Check all four corners of the player's bounding box
+        std::vector<vec2> corners = {
+            {position.x - halfWidth, position.y - halfHeight},             // Top-left corner
+            {position.x + halfWidth, position.y - halfHeight},             // Top-right corner
+            {position.x - halfWidth, position.y + halfHeight},             // Bottom-left corner
+            {position.x + halfWidth, position.y + halfHeight}              // Bottom-right corner
+        };
+
+        for (const vec2& corner : corners) {
+            // Convert the corner's world coordinates to grid coordinates
+            int gridX = (static_cast<int>(corner.x) / TILE_WIDTH) % GRID_WIDTH;
+            int gridY = (static_cast<int>(corner.y) / TILE_HEIGHT) % GRID_HEIGHT;
+
+            // Ensure grid coordinates are non-negative (handle negative positions)
+            if (gridX < 0) gridX += GRID_WIDTH;
+            if (gridY < 0) gridY += GRID_HEIGHT;
+
+            // Check if the tile at the grid coordinates is an asteroid
+            TileType tileType = tileGrid[gridY][gridX];
+            if (tileType == ASTEROID1 || tileType == ASTEROID2) {
+                return true;  // Collision detected with an impassable tile
+            }
+        }
+
+        return false;  // No collision detected
     }
 
 private:

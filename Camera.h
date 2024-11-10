@@ -1,5 +1,5 @@
 #pragma once
-#include "vec2.h"
+#include "core.h"
 
 class Camera {
 public:

@@ -7,7 +7,7 @@ class Player : public GameObject {
 public:
     Player();
 
-    void onUpdate(Window& canvas, float deltaTime) override;
+    void onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera) override;
     void shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles);
 
     vec2 getPosition() const { return pos; }

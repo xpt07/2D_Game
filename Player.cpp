@@ -1,11 +1,11 @@
-#include "Player.h"
+#include "Player.h" 
 
 Player::Player():
 	GameObject("resources/mainShip.png", vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ObjectType::Player),
     cooldownTimer(0.0f)
 {}
 
-void Player::onUpdate(Window& canvas, float deltaTime)
+void Player::onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera)
 {
     vec2 movement(0, 0);
     if (canvas.keyPressed('W')) movement.y -= CAMERA_SPEED;
@@ -13,12 +13,17 @@ void Player::onUpdate(Window& canvas, float deltaTime)
     if (canvas.keyPressed('A')) movement.x -= CAMERA_SPEED;
     if (canvas.keyPressed('D')) movement.x += CAMERA_SPEED;
 
-    pos += movement;
+    vec2 newPosition = pos + movement;
+
+    if (!background.isPositionBlocked(newPosition, camera)) {
+        pos = newPosition;  // Only update position if it's not blocked
+    }
 
     // Update the cooldown timer
-    if (cooldownTimer > 0) {
-        cooldownTimer -= deltaTime;  // Assuming getDeltaTime() returns time in seconds
+    if (this->cooldownTimer > 0) {
+        this->cooldownTimer -= deltaTime;  // Assuming getDeltaTime() returns time in seconds
     }
+
 }
 
 void Player::shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles)

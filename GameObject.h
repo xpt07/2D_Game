@@ -1,9 +1,7 @@
 #pragma once
 #include <memory>
+#include "Background.h"
 #include "core.h"
-#include "vec2.h"
-#include "GamesEngineeringBase.h"
-#include "circle.h"
 
 using namespace GamesEngineeringBase;
 
@@ -19,7 +17,7 @@ public:
     GameObject(const std::string& sImage, vec2 startPos, ObjectType type, int h = 100);
     GameObject(vec2 startPos, ObjectType type) : pos(startPos), charType(type) {};
     virtual ~GameObject() = default;
-    virtual void onUpdate(Window& canvas, float deltaTime) {}
+    virtual void onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera) {}
     virtual void onUpdate(vec2 target, float deltaTime) {}
     virtual void onUpdate() {}
     void draw(Window& window, const vec2& cameraOffset);

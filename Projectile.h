@@ -4,7 +4,7 @@
 class Projectile : public GameObject {
 public:
 	Projectile(vec2 startPos, vec2 _direction, ObjectType _shooterType) :
-		GameObject(startPos, ObjectType::Projectile), direction(_direction), speed(5.f), shooterType(_shooterType) {}
+		GameObject(startPos, ObjectType::Projectile), direction(_direction), speed(5.f), originType(_shooterType) {}
 
 	void onUpdate() override {
 		// Move the projectile in the specified direction
@@ -20,24 +20,26 @@ public:
             1
         );
 
-		for (unsigned int i = 0; i < 5; i++)
-		{
-			for (unsigned int j = 0; j < 5; j++)
-			{
-				if (screenPos.x >= 0 && screenPos.x < static_cast<int>(canvas.getWidth()) &&
-					screenPos.y >= 0 && screenPos.y < static_cast<int>(canvas.getHeight())) {
-					canvas.draw(screenPos.x + i, screenPos.y + j, 255, 0, 0);
-				}
-				
-			}
-		}
+        for (unsigned int i = 0; i < 5; i++) {
+            for (unsigned int j = 0; j < 5; j++) {
+                // Ensure the pixel is within the window bounds
+                int drawX = static_cast<int>(screenPos.x + i);
+                int drawY = static_cast<int>(screenPos.y + j);
 
-	}
-	~Projectile() = default;
-	ObjectType getShooterType() const { return shooterType; }
+                if (drawX >= 0 && drawX < static_cast<int>(canvas.getWidth()) &&
+                    drawY >= 0 && drawY < static_cast<int>(canvas.getHeight())) {
+
+                    canvas.draw(drawX, drawY, 255,0,0);
+                    
+                }
+            }
+        }
+    }
+
+	ObjectType getOriginType() const { return originType; }
 
 private:
 	vec2 direction;
 	float speed;
-	ObjectType shooterType;
+	ObjectType originType;
 };

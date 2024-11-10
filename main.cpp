@@ -17,7 +17,6 @@ int main() {
     std::vector<std::unique_ptr<GameObject>> enemies;
     std::vector<std::unique_ptr<Projectile>> projectiles;
     Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT);
-
     background.load();
     Level level(1, WINDOW_WIDTH, 20);
 
@@ -44,7 +43,7 @@ int main() {
         background.draw(canvas, camera);
 
         // Update and draw the player
-        player->onUpdate(canvas, deltaTime);
+        player->onUpdate(canvas, deltaTime, background, camera);
         player->shootAtNearestEnemy(enemies, projectiles);
         // Move the camera to follow the player
         camera.follow(player->getPosition());
@@ -68,9 +67,10 @@ int main() {
             projectile->draw(canvas, camera.getPosition());
         }
 
-        CollisionManager::checkCollisions(player.get(), enemies, projectiles);
+        CollisionManager::checkCollisions(player.get(), enemies, projectiles, camera);
 
         canvas.present();
     }
+
     return 0;
 }
