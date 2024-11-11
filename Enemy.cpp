@@ -67,10 +67,9 @@ void DestroyerEnemy::onUpdate(vec2 target, float deltaTime) {
         direction.x /= length;
         direction.y /= length;
     }
-    if (length > attackDistance) {
-        pos.x += direction.x * speed;
-        pos.y += direction.y * speed;
-    }
+
+    pos.x += direction.x * speed;
+    pos.y += direction.y * speed;
 }
 
 void DestroyerEnemy::explodeAndShoot(vec2 playerPos, Projectile* projectiles[], int& projectileCount) {

@@ -81,7 +81,7 @@ void loadGame(Player* player, GameObject* enemies[], int& enemyCount, int& score
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
     GamesEngineeringBase::Window canvas;
-    canvas.create(WINDOW_WIDTH, WINDOW_HEIGHT, "Space Game");
+    canvas.create(WINDOW_WIDTH, WINDOW_HEIGHT, "Space Ranger");
 
     bool running = true;
     Background background;
