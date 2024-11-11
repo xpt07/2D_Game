@@ -9,7 +9,8 @@ enum class ObjectType {
     Player,
     Kamikaze,
     Bomber,
-    Projectile
+    Projectile,
+    PowerUp
 };
 
 class GameObject {
@@ -20,10 +21,12 @@ public:
     virtual void onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera) {}
     virtual void onUpdate(vec2 target, float deltaTime) {}
     virtual void onUpdate() {}
+    void takeDamage(int amount);
     void draw(Window& window, const vec2& cameraOffset);
     Shape* getHitbox() const { return hitbox.get(); }
     vec2 getPosition() const { return pos; }
-    ObjectType getCharacterType() const { return charType; }
+    ObjectType getCharacterType() { return charType; }
+    int getHealth() const { return health; }
 protected:
     vec2 pos;
     Image image;

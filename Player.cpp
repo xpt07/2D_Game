@@ -1,8 +1,9 @@
-#include "Player.h" 
+#include "Player.h"
+#include <algorithm>
 
 Player::Player():
 	GameObject("resources/mainShip.png", vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ObjectType::Player),
-    cooldownTimer(0.0f)
+    cooldownTimer(0.0f), aoeCooldownTimer(0.0f), fireRateMultiplier(1.0f), powerUpDuration(0.0f)
 {}
 
 void Player::onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera)
@@ -27,9 +28,19 @@ void Player::onUpdate(Window& canvas, float deltaTime, Background& background, C
     }
 
     if (this->cooldownTimer > 0) {
-        this->cooldownTimer -= deltaTime;
+        this->cooldownTimer -= deltaTime * fireRateMultiplier;
     }
 
+    if (this->aoeCooldownTimer > 0) {
+        this->aoeCooldownTimer -= deltaTime;
+    }
+
+    if (powerUpDuration > 0) {
+        powerUpDuration -= deltaTime;
+        if (powerUpDuration <= 0) {
+            fireRateMultiplier = 1.0f; 
+        }
+    }
 }
 
 void Player::shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles)
@@ -63,6 +74,31 @@ void Player::shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemi
 
         cooldownTimer = cooldownDuration;
     }
+}
+
+void Player::useAOEAttack(std::vector<std::unique_ptr<GameObject>>& enemies)
+{
+    if (aoeCooldownTimer > 0) return;
+
+    const int N = 3;
+
+    std::sort(enemies.begin(), enemies.end(), [](const std::unique_ptr<GameObject>& a, const std::unique_ptr<GameObject>& b) {
+        return a->getHealth() > b->getHealth();
+    });
+
+    for (int i = 0; i < N && i < enemies.size(); ++i)
+    {
+        enemies[i]->takeDamage(50);
+        std::cout << "AOE attack hit enemy with " << enemies[i]->getHealth() << " health!" << std::endl;
+    }
+
+    aoeCooldownTimer = aoeCooldownDuration;
+}
+
+void Player::collectPowerUp()
+{
+    fireRateMultiplier = 10.0f;
+    powerUpDuration = 5.0f;
 }
 
 void Player::takeDamage(int amount)

@@ -17,6 +17,6 @@ void Level::spawnEnemies(std::vector<std::unique_ptr<GameObject>>& enemies, vec2
         enemies.push_back(std::make_unique<KamikazeEnemy>(spawnPos));
     }
     else {
-        enemies.push_back(std::make_unique<BomberEnemy>(spawnPos));
+        enemies.push_back(std::make_unique<BomberEnemy>(spawnPos, 200));
     }
 }

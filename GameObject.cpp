@@ -6,6 +6,14 @@ GameObject::GameObject(const std::string& sImage, vec2 startPos, ObjectType type
     image.load(sImage);
 }
 
+void GameObject::takeDamage(int amount)
+{
+    health -= amount;
+    if (health < 0) {
+        health = 0;
+    }
+}
+
 void GameObject::draw(Window& window, const vec2& cameraOffset) {
     vec2 screenPos = pos - cameraOffset;
 

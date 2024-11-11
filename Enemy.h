@@ -5,12 +5,13 @@
 
 class Enemy : public GameObject {
 public:
+    Enemy(const std::string& sImage, vec2 startPos, ObjectType type, int h, float speed);
     Enemy(const std::string& sImage, vec2 startPos, ObjectType type, float speed);
     void onUpdate(vec2 target, float deltaTime) override = 0;
     virtual ~Enemy() = default;
 
 protected:
-    float speed;  // Distance at which the Bomber stops approaching
+    float speed;
 };
 
 class KamikazeEnemy : public Enemy {
@@ -21,7 +22,7 @@ public:
 
 class BomberEnemy : public Enemy {
 public:
-    BomberEnemy(vec2 startPos);
+    BomberEnemy(vec2 startPos, int h);
     void onUpdate(vec2 target, float deltTime) override;
     void shootAtPlayer(vec2 playerPos, std::vector<std::unique_ptr<Projectile>>& projectiles);
 
