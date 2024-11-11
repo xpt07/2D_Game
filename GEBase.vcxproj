@@ -155,8 +155,11 @@
     <Image Include="resources\background\asteroid_tile.png" />
     <Image Include="resources\background\space_empty_tile.png" />
     <Image Include="resources\background\starfield_tile.png" />
+    <Image Include="resources\bomber_plane_sprite.png" />
+    <Image Include="resources\destroyer_sprite.png" />
     <Image Include="resources\kamikaze_plane_sprite.png" />
     <Image Include="resources\mainShip.png" />
+    <Image Include="resources\sniper_sprite.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

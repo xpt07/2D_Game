@@ -9,6 +9,8 @@ enum class ObjectType {
     Player,
     Kamikaze,
     Bomber,
+    Destroyer,
+    Sniper,
     Projectile,
     PowerUp
 };
@@ -25,8 +27,10 @@ public:
     void draw(Window& window, const vec2& cameraOffset);
     Shape* getHitbox() const { return hitbox.get(); }
     vec2 getPosition() const { return pos; }
+    void setPosition(vec2 _pos) { pos = _pos; }
     ObjectType getCharacterType() { return charType; }
     int getHealth() const { return health; }
+    void setHealth(int _health) { health = _health; }
 protected:
     vec2 pos;
     Image image;

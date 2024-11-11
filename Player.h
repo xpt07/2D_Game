@@ -1,20 +1,19 @@
 #pragma once
 #include "GameObject.h"
 #include "Projectile.h"
-#include <vector>
 
 class Player : public GameObject {
 public:
     Player();
 
     void onUpdate(Window& canvas, float deltaTime, Background& background, Camera& camera) override;
-    void shootAtNearestEnemy(std::vector<std::unique_ptr<GameObject>>& enemies, std::vector<std::unique_ptr<Projectile>>& projectiles);
-    void useAOEAttack(std::vector<std::unique_ptr<GameObject>>& enemies);
+    void shootAtNearestEnemy(GameObject* enemies[], int enemyCount, Projectile* projectiles[], int& projectileCount);
+    void useAOEAttack(GameObject* enemies[], int enemyCount);
     void collectPowerUp();
     vec2 getPosition() const { return pos; }
     void takeDamage(int amount);
     bool isAlive() const { return health > 0; }
-
+    void resetMovement() { movement = vec2(0, 0); }
 private:
     float cooldownTimer;
     const float cooldownDuration = 1.f;
@@ -24,4 +23,6 @@ private:
 
     float fireRateMultiplier;
     float powerUpDuration;
+
+    vec2 movement;
 };
