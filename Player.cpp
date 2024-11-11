@@ -13,6 +13,8 @@ void Player::onUpdate(Window& canvas, float deltaTime, Background& background, C
     if (canvas.keyPressed('A')) movement.x -= PLAYER_SPEED;
     if (canvas.keyPressed('D')) movement.x += PLAYER_SPEED;
 
+    int i = image.width;
+
     vec2 newPosition = pos + movement;
     if (!background.IsInfiniteWorld()) {
         if (newPosition.x < 0.0f) newPosition.x = 0.0f;
